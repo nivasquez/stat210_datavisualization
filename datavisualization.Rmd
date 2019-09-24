@@ -1,0 +1,120 @@
+---
+title: "R Notebook"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r}
+library(tidyverse)
+```
+
+#3.2.4 Exercises
+##1.
+```{r}
+ggplot(data = mpg) 
+ 
+```
+
+I do not see anything because there is no data mapped to any aesthetics.
+
+## 2. 
+There are 234 rows for mpg.
+
+##3. 
+drv means f = front wheel drive, r = rear wheel drive and 4 = 4 wheel drive.
+
+##4. 
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = hwy, y = cyl))
+```
+
+##5. 
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = class, y = drv))
+```
+
+This plot is not useful because it only tells us the class of car and if it has front, back or 4 wheel drive. We can see that without a plot. 
+
+#3.3.1
+
+##1.
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy), color = "blue")
+```
+
+Above is the correct code for making the points blue. The error was that the color = "blue" was inside the aes arguments. Take it out!
+
+##2.
+The variables that are categorical are model, trans, drv, fl, class. The variables that are continuous are displ, cty, hwy, year, cyl. This information can be seen by typing ?mpg in the console. 
+
+##3.
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy, color = displ, size = displ, shape = drv))
+```
+The difference between a categorical or continuous variable being mapped to the aesthetics will be in the x and y axis. Continuous variables can't be mapped to shape.
+
+##4.
+If you map one variable to multiple aesthetics, all you get are the combination of all aesthetics on each data point, which is useless. One aesthetic per variable is useful to help us see differences. 
+
+##5. 
+The stroke aesthetic modifies the width of the border. 
+
+##6.
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(colour = displ < 5, x = displ, y = hwy))
+```
+By mapping the aesthetic to color = displ < 5, it shows two colors, one representing true and one representing false, depending on if displ is less than 5 or not. 
+
+#3.5.1
+
+##1.
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_wrap(~ displ, nrow = 2)
+```
+If you facet on a continuous variable, you basically get columns of data points per one continuous data value. It could have value to us, but it is making it far more difficult to see the information than it needs to be. 
+
+##2. 
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = drv, y = cyl))
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = drv, y = cyl)) + 
+  facet_grid(drv ~ cyl)
+
+```
+The facet grid just allows us to easily see where data points are missing. Both are similar but the facet grid allows us to easily see what is missing.
+
+##3.
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  facet_grid(drv ~ .)
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  facet_grid(. ~ cyl)
+```
+The . changes the orientation. if ~., then the orientation is from left to right. if .~, then the orientation is from top to bottom.
+
+##4.
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_wrap(~ class, nrow = 2)
+```
+The advantages of using fauceting instead of color includes not needing to look at one graph with many colors. If there are too many different colors, the differences become less noticable. The disadvantages include, not being able to see how close or far the actual distances between each point for each category are. 
+
+##5. 
+nrow and ncol just mean the number of rows and columns. 
+
+#3.6.1
+
+
